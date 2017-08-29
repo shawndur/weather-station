@@ -5,6 +5,8 @@ import PyMySql
 import sys
 
 #initialize program
+sense = SenseHat()
+
 #load config data
 address = 'localhost'
 username = 'weather'
@@ -32,7 +34,12 @@ try:
         """
         cursor.execute(sql)
 
-#main loop
+    #main loop
+    while True:
+        temp = round(sense.get_temperature(), 2)
+        pressure = round(sense.get_pressure(), 2)
+        humidity = round(sense.get_humidity(), 2)
+
  #every time unit
   #get data
    #get temp from pressure
@@ -41,6 +48,5 @@ try:
    #get pressure
    #get humidity
   #store data in server
-
 finally:
     db.close();
