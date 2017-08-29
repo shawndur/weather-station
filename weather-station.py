@@ -18,10 +18,19 @@ if db is None:
     sys.exit(1)
 
 try:
+    #make table if it doesn't exist
     with db.cursor() as cursor:
-
-#check if table exists
-  #if not create table
+        sql = """
+        CREATE TABLE IF NOT EXISTS READINGS (
+          reading_id UNSIGNED NOT NULL AUTO_INCREMENT,
+          reading_time TIMESTAMP NOT NULL UNIQUE,
+          reading_temp DECIMAL(5,2) NOT NULL,
+          reading_pressure DECIMAL(6,2) NOT NULL,
+          reading_humidity DECIMAL(5,2) NOT NULL,
+          PRIMARY KEY(reading_id)
+        );
+        """
+        cursor.execute(sql)
 
 #main loop
  #every time unit
