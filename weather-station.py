@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
 from sense_hat import SenseHat
+from time import sleep
+from datetime import datetime, timedelta
+from sys import exit
 import PyMySql
-import sys
 
 #initialize program
 sense = SenseHat()
@@ -12,6 +14,7 @@ address = 'localhost'
 username = 'weather'
 password = 'station'
 dbname = 'weather-station'
+reading_delay = timedelta(hours=2)
 
 #connect to mysql server
 db = PyMySql.connect(address, username, password, dbname)
@@ -50,7 +53,10 @@ try:
             except:
                 db.rollback()
 
-        #wait timeunit
+        #wait one reading_delay
+        cur_time = datetime.today()
+        next_time = cur_time + reading_delay
+        sleep((next_time-cur_time).seconds())
 
 finally:
     db.close();
