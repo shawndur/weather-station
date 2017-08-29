@@ -15,9 +15,23 @@
 
   $sql = 'SELECT * FROM READINGS WHERE reading_time > now() - INTERVAL 1 DAY';
   $res = mysql_query($sql, $conn);
-  if (!res) {
+  if (!$res) {
     die("Could not load data" . mysql_error());
   }
-
-  mysql_close($conn);
 ?>
+
+<table>
+  <tr>
+    <th>Timestamp</th> <th>Temp</th> <th>Humidity</th> <th>Pressure</th>
+  </tr>
+  <?php while ($row = mysql_fetch_assoc($res)) { ?>
+    <tr>
+      <td><?php echo $row['reading_time']; ?></td>
+      <td><?php echo $row['reading_temp']; ?></td>
+      <td><?php echo $row['reading_humidity']; ?></td>
+      <td><?php echo $row['reading_pressure']; ?></td>
+    </tr>
+  <?php } ?>
+</table>
+
+<?php mysql_close($conn); ?>
