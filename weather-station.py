@@ -36,17 +36,21 @@ try:
 
     #main loop
     while True:
+        #get data
         temp = round(sense.get_temperature(), 2)
         pressure = round(sense.get_pressure(), 2)
         humidity = round(sense.get_humidity(), 2)
 
- #every time unit
-  #get data
-   #get temp from pressure
-   #get temp from humidity
-   #find average temp
-   #get pressure
-   #get humidity
-  #store data in server
+        #save in database
+        with db.cursor() as cursor:
+            sql = "INSERT INTO READINGS VALUES (DEFAULT, NOW(), %s, %s, %s)"
+            try:
+                cursor.execute(sql, (temp, pressure, humidity))
+                db.commit()
+            except:
+                db.rollback()
+
+        #wait timeunit
+
 finally:
     db.close();
