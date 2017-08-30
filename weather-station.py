@@ -4,7 +4,7 @@ from sense_hat import SenseHat
 from time import sleep
 from datetime import datetime, timedelta
 from sys import exit
-import PyMySql
+import pymysql
 
 #initialize program
 sense = SenseHat()
@@ -13,11 +13,11 @@ sense = SenseHat()
 address = 'localhost'
 username = 'weather'
 password = 'station'
-dbname = 'weather-station'
-reading_delay = timedelta(hours=2)
+dbname = 'weather_station'
+reading_delay = timedelta(seconds = 10)
 
 #connect to mysql server
-db = PyMySql.connect(address, username, password)
+db = pymysql.connect(address, username, password)
 if db is None:
     print("Error: Weather Station could not connect to MySql server")
     sys.exit(1)
@@ -25,17 +25,19 @@ if db is None:
 try:
     with db.cursor() as cursor:
         #make db if it doesn't exist
-        sql = 'CREATE DATABASE IF NOT EXISTS %s;'
-        cursor.execute(sql, (dbname))
+        sql = 'CREATE DATABASE IF NOT EXISTS ' + dbname + ';'
+        print (cursor.mogrify(sql))
+        cursor.execute(sql)
 
         #select db
-        sql = 'USE %s;'
-        cursor.execute(sql, (dbname))
+        sql = 'USE ' + dbname + ';'
+        print (cursor.mogrify(sql))
+        cursor.execute(sql)
 
         #make table if it doesn't exist
         sql = """
-        CREATE TABLE IF NOT EXISTS READINGS (
-          reading_id UNSIGNED NOT NULL AUTO_INCREMENT,
+        CREATE TABLE IF NOT EXISTS readings (
+          reading_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
           reading_time TIMESTAMP NOT NULL UNIQUE,
           reading_temp DECIMAL(5,2) NOT NULL,
           reading_pressure DECIMAL(6,2) NOT NULL,
@@ -43,6 +45,7 @@ try:
           PRIMARY KEY(reading_id)
         );
         """
+        print (cursor.mogrify(sql))
         cursor.execute(sql)
 
     #main loop
@@ -54,17 +57,16 @@ try:
 
         #save in database
         with db.cursor() as cursor:
-            sql = "INSERT INTO READINGS VALUES (DEFAULT, NOW(), %s, %s, %s)"
+            sql = "INSERT INTO readings VALUES (DEFAULT, NOW(), %s, %s, %s)"
             try:
+                print (cursor.mogrify(sql, (temp, pressure, humidity)))
                 cursor.execute(sql, (temp, pressure, humidity))
                 db.commit()
             except:
                 db.rollback()
 
         #wait one reading_delay
-        cur_time = datetime.today()
-        next_time = cur_time + reading_delay
-        sleep((next_time-cur_time).seconds())
+        sleep(reading_delay.seconds)
 
 finally:
     db.close();
