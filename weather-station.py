@@ -23,8 +23,12 @@ if db is None:
     sys.exit(1)
 
 try:
-    #make table if it doesn't exist
     with db.cursor() as cursor:
+        #make db if it doesn't exist
+        sql = 'CREATE DATABASE IF NOT EXISTS %s;'
+        cursor.execute(sql, (dbname))
+
+        #make table if it doesn't exist
         sql = """
         CREATE TABLE IF NOT EXISTS READINGS (
           reading_id UNSIGNED NOT NULL AUTO_INCREMENT,
