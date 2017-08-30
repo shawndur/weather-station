@@ -17,7 +17,7 @@ dbname = 'weather-station'
 reading_delay = timedelta(hours=2)
 
 #connect to mysql server
-db = PyMySql.connect(address, username, password, dbname)
+db = PyMySql.connect(address, username, password)
 if db is None:
     print("Error: Weather Station could not connect to MySql server")
     sys.exit(1)
@@ -26,6 +26,10 @@ try:
     with db.cursor() as cursor:
         #make db if it doesn't exist
         sql = 'CREATE DATABASE IF NOT EXISTS %s;'
+        cursor.execute(sql, (dbname))
+
+        #select db
+        sql = 'USE %s;'
         cursor.execute(sql, (dbname))
 
         #make table if it doesn't exist
