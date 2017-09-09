@@ -6,7 +6,7 @@
 
   $conn = mysql_connect($address, $username, $password);
   if (!$conn) {
-    die("Could not connect to MySql" . mysql_error())
+    die("Could not connect to MySql" . mysql_error());
   }
 
   if (!mysql_select_db($dbname)) {
