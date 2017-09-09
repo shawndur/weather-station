@@ -21,12 +21,7 @@
     die("Could not load data" . mysql_error());
   }
 
-  $return_string = '
-    <table>
-      <tr>
-        <th>Timestamp</th> <th>Temp</th> <th>Humidity</th> <th>Pressure</th>
-      </tr>
-  ';
+  $return_string = '';
 
   while ($row = mysql_fetch_assoc($res)) {
     $return_string .= "
@@ -38,8 +33,6 @@
       </tr>
     ";
   }
-
-  $return_string .= '</table>';
 
   mysql_close($conn);
 
