@@ -1,37 +1,27 @@
-<?php
-  $address = 'localhost';
-  $username = 'weather';
-  $password = 'station';
-  $dbname = 'weather-station';
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>RPI-WeatherStation</title>
+  <!--bootstrap css-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
 
-  $conn = mysql_connect($address, $username, $password);
-  if (!$conn) {
-    die("Could not connect to MySql" . mysql_error())
-  }
+<body>
 
-  if (!mysql_select_db($dbname)) {
-    die("Database could not be selected: " . mysql_error());
-  }
+  <div class="weather-table">
 
-  $sql = 'SELECT * FROM READINGS WHERE reading_time > now() - INTERVAL 1 DAY';
-  $res = mysql_query($sql, $conn);
-  if (!$res) {
-    die("Could not load data" . mysql_error());
-  }
-?>
+  </div>
 
-<table>
-  <tr>
-    <th>Timestamp</th> <th>Temp</th> <th>Humidity</th> <th>Pressure</th>
-  </tr>
-  <?php while ($row = mysql_fetch_assoc($res)) { ?>
-    <tr>
-      <td><?php echo $row['reading_time']; ?></td>
-      <td><?php echo $row['reading_temp']; ?></td>
-      <td><?php echo $row['reading_humidity']; ?></td>
-      <td><?php echo $row['reading_pressure']; ?></td>
-    </tr>
-  <?php } ?>
-</table>
+  <!--ajax-->
+  <script src="ajax-weather.js">
 
-<?php mysql_close($conn); ?>
+  </script>
+
+  <!--bootstrap js-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
+</html>
