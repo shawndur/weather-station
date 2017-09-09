@@ -14,7 +14,7 @@ address = 'localhost'
 username = 'weather'
 password = 'station'
 dbname = 'weather_station'
-reading_delay = timedelta(seconds = 10)
+reading_delay = timedelta(hours = 1)
 
 #connect to mysql server
 db = pymysql.connect(address, username, password)
