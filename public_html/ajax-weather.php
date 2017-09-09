@@ -2,7 +2,7 @@
   $address = 'localhost';
   $username = 'weather';
   $password = 'station';
-  $dbname = 'weather-station';
+  $dbname = 'weather_station';
 
   $conn = mysql_connect($address, $username, $password);
   if (!$conn) {
