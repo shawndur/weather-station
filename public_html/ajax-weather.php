@@ -13,7 +13,7 @@
     die("Database could not be selected: " . mysql_error());
   }
 
-  $sql = 'SELECT * FROM READINGS WHERE reading_time > now() - INTERVAL 1 DAY';
+  $sql = 'SELECT * FROM readings WHERE reading_time > now() - INTERVAL 1 DAY';
   $res = mysql_query($sql, $conn);
   if (!$res) {
     die("Could not load data" . mysql_error());
@@ -29,10 +29,10 @@
   while ($row = mysql_fetch_assoc($res)) {
     $return_string .= "
       <tr>
-        <td>$row['reading_time']</td>
-        <td>$row['reading_temp']</td>
-        <td>$row['reading_humidity']</td>
-        <td>$row['reading_pressure']</td>
+        <td>$row[reading_time]</td>
+        <td>$row[reading_temp]</td>
+        <td>$row[reading_humidity]</td>
+        <td>$row[reading_pressure]</td>
       </tr>
     ";
   }
