@@ -1,8 +1,10 @@
 <?php
-  $address = 'localhost';
-  $username = 'weather';
-  $password = 'station';
-  $dbname = 'weather_station';
+  require_once("../../resources/config.php");
+
+  $address = $config['db']['addr'];
+  $username = $config['db']['user'];
+  $password = $config['db']['pass'];
+  $dbname = $config['db']['dbname'];
 
   $conn = mysql_connect($address, $username, $password);
   if (!$conn) {
