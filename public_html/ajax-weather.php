@@ -33,7 +33,7 @@
       break;
   }
 
-  $sql .= $_GET['asc'] ? 'ASC' : 'DESC';
+  $sql .= ($_GET['asc'] == 'true') ? 'ASC' : 'DESC';
 
   $res = mysql_query($sql, $conn);
   if (!$res) {
