@@ -15,8 +15,7 @@
     die("Database could not be selected: " . mysql_error());
   }
 
-  $sql = 'SELECT * FROM readings WHERE reading_time > now() - INTERVAL 1 DAY
-          ORDER BY ';
+  $sql = 'SELECT * FROM readings LIMIT 24 ORDER BY ';
 
   switch ($_GET['order']) {
     case 'temp':
