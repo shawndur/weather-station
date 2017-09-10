@@ -1,4 +1,9 @@
-function loadWeatherTable(){
+var sortOrder = {
+  asc: true,
+  column: 'timestamp'
+}
+
+function loadWeatherTable() {
   var ajaxRequest;
 
   try {
@@ -23,17 +28,19 @@ function loadWeatherTable(){
     }
   }
 
-  /*
+  var args = "?order=" + sortOrder.column + "&asc=" + sortOrder.asc;
 
-  var age = document.getElementById('age').value;
-  var wpm = document.getElementById('wpm').value;
-  var sex = document.getElementById('sex').value;
-  var queryString = "?age=" + age ;
-
-  queryString +=  "&wpm=" + wpm + "&sex=" + sex;
-  */
-  ajaxRequest.open("GET", "ajax-weather.php", true);
+  ajaxRequest.open("GET", "ajax-weather.php" + args, true);
   ajaxRequest.send(null);
+}
+
+function sortWeatherTable(column) {
+  if (column == sortOrder.column) {
+    sortOrder.asc != sortOrder.asc;
+  }
+  sortOrder.column = column;
+
+  loadWeatherTable();
 }
 
 loadWeatherTable();

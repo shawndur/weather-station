@@ -15,7 +15,26 @@
     die("Database could not be selected: " . mysql_error());
   }
 
-  $sql = 'SELECT * FROM readings WHERE reading_time > now() - INTERVAL 1 DAY';
+  $sql = 'SELECT * FROM readings WHERE reading_time > now() - INTERVAL 1 DAY
+          ORDER BY ';
+
+  switch ($_GET['order']) {
+    case 'temp':
+      $sql .= 'reading_temp';
+      break;
+    case 'humidity':
+      $sql .= 'reading_humidity';
+      break;
+    case 'pressure':
+      $sql .= 'reading_pressure';
+      break;
+    default:
+      $sql .= 'reading_time';
+      break;
+  }
+
+  $sql .= $_GET['asc'] ? 'ASC' : 'DESC';
+
   $res = mysql_query($sql, $conn);
   if (!$res) {
     die("Could not load data" . mysql_error());
