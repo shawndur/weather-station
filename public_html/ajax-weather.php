@@ -15,7 +15,7 @@
     die("Database could not be selected: " . mysql_error());
   }
 
-  $sql = 'SELECT * FROM readings LIMIT 24 ORDER BY ';
+  $sql = 'SELECT * FROM readings ORDER BY ';
 
   switch ($_GET['order']) {
     case 'temp':
@@ -33,6 +33,8 @@
   }
 
   $sql .= ($_GET['asc'] == 'true') ? 'ASC' : 'DESC';
+
+  $sql .= ' LIMIT 25';
 
   $res = mysql_query($sql, $conn);
   if (!$res) {
