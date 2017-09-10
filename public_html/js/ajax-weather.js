@@ -12,6 +12,13 @@ var sortOrder = {
   }
 }
 
+var timeHeader = document.getElementById('th-time');
+var tempHeader = document.getElementById('th-temp');
+var humHeader = document.getElementById('th-hum');
+var pressHeader = document.getElementById('th-press');
+
+var curHeader = timeHeader;
+
 function loadWeatherTable() {
   var ajaxRequest;
 
@@ -51,16 +58,17 @@ function renderCaret(element, asc) {
   }
 }
 
+function removeCaret(element) {
+  element.setAttribute('class','');
+}
+
 function sortWeatherTable(column, element) {
   sortOrder.sortOn(column);
+  removeCaret(curHeader);
+  curHeader = element;
   renderCaret(element, sortOrder.asc);
   loadWeatherTable();
 }
-
-var timeHeader = document.getElementById('th-time');
-var tempHeader = document.getElementById('th-temp');
-var humHeader = document.getElementById('th-hum');
-var pressHeader = document.getElementById('th-press');
 
 timeHeader.onclick = function(){ sortWeatherTable(0, timeHeader); }
 tempHeader.onclick = function(){ sortWeatherTable(1, tempHeader); }
@@ -68,4 +76,4 @@ humHeader.onclick = function(){ sortWeatherTable(2, humHeader); }
 pressHeader.onclick = function(){ sortWeatherTable(3, pressHeader); }
 
 loadWeatherTable();
-renderCaret(timeHeader, true);
+renderCaret(curHeader, true);
