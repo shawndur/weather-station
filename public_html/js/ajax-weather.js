@@ -1,6 +1,15 @@
 var sortOrder = {
+  columnNames: ['time', 'temp', 'humidity', 'pressure'],
   asc: true,
-  column: 'timestamp'
+  column: 0,
+  columnName: function () {return this.columnNames[this.column]},
+  sortOn: function (column) {
+    if (this.column == column) {
+      this.asc = !this.asc;
+    }else{
+      this.column = column;
+    }
+  }
 }
 
 function loadWeatherTable() {
@@ -28,19 +37,35 @@ function loadWeatherTable() {
     }
   }
 
-  var args = "?order=" + sortOrder.column + "&asc=" + sortOrder.asc;
+  var args = "?order=" + sortOrder.columnName() + "&asc=" + sortOrder.asc;
 
   ajaxRequest.open("GET", "ajax-weather.php" + args, true);
   ajaxRequest.send(null);
 }
 
-function sortWeatherTable(column) {
-  if (column == sortOrder.column) {
-    sortOrder.asc = !sortOrder.asc;
+function renderCaret(element, asc) {
+  if (asc) {
+    element.setAttribute('class', 'fa fa-caret-up');
+  }else{
+    element.setAttribute('class', 'fa fa-caret-down');
   }
-  sortOrder.column = column;
+}
 
+function sortWeatherTable(column, element) {
+  sortOrder.sortOn(column);
+  renderCaret(element, sortOrder.asc);
   loadWeatherTable();
 }
 
+var timeHeader = document.getElementById('th-time');
+var tempHeader = document.getElementById('th-temp');
+var humHeader = document.getElementById('th-hum');
+var pressHeader = document.getElementById('th-press');
+
+timeHeader.onclick = function(){ sortWeatherTable(0, timeHeader); }
+tempHeader.onclick = function(){ sortWeatherTable(1, tempHeader); }
+humHeader.onclick = function(){ sortWeatherTable(2, humHeader); }
+pressHeader.onclick = function(){ sortWeatherTable(3, pressHeader); }
+
 loadWeatherTable();
+renderCaret(timeHeader, true);
