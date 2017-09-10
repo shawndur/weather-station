@@ -20,16 +20,16 @@
 
   switch ($_GET['order']) {
     case 'temp':
-      $sql .= 'reading_temp';
+      $sql .= 'reading_temp ';
       break;
     case 'humidity':
-      $sql .= 'reading_humidity';
+      $sql .= 'reading_humidity ';
       break;
     case 'pressure':
-      $sql .= 'reading_pressure';
+      $sql .= 'reading_pressure ';
       break;
     default:
-      $sql .= 'reading_time';
+      $sql .= 'reading_time ';
       break;
   }
 

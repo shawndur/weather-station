@@ -36,7 +36,7 @@ function loadWeatherTable() {
 
 function sortWeatherTable(column) {
   if (column == sortOrder.column) {
-    sortOrder.asc != sortOrder.asc;
+    sortOrder.asc = !sortOrder.asc;
   }
   sortOrder.column = column;
 
