@@ -9,22 +9,25 @@
 </head>
 
 <body>
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <a href="#"></a>
-          <th><a href='#' onclick="sortWeatherTable('timestamp')">Timestamp</a></th>
-          <th><a href='#' onclick="sortWeatherTable('temp')">Temp</a></th>
-          <th><a href='#' onclick="sortWeatherTable('humidity')">Humidity</a></th>
-          <th><a href='#' onclick="sortWeatherTable('pressure')">Pressure</a></th>
-        </tr>
-      </thead>
-      <tbody id="weather-table">
-        <!--ajax generated content-->
-      </tbody>
-    </table>
+  <div class="container">
+    <div class="row">
+      <div class="table-responsive col-xs-offset-1 col-xs-10">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <a href="#"></a>
+              <th><a href='#' onclick="sortWeatherTable('timestamp')">Timestamp</a></th>
+              <th><a href='#' onclick="sortWeatherTable('temp')">Temp</a></th>
+              <th><a href='#' onclick="sortWeatherTable('humidity')">Humidity</a></th>
+              <th><a href='#' onclick="sortWeatherTable('pressure')">Pressure</a></th>
+            </tr>
+          </thead>
+          <tbody id="weather-table">
+            <!--ajax generated content-->
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!--ajax-->
